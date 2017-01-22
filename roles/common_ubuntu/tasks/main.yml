@@ -1,0 +1,19 @@
+- name: Run apt-get update command
+  remote_user: ubuntu
+  sudo : yes
+  apt: update_cache=yes
+
+- name: Install Vim package
+  remote_user: ubuntu
+  sudo : yes
+  apt: name=vim state=present update_cache=yes
+
+- name: Install git
+  remote_user: ubuntu
+  sudo: yes
+  apt: name=git state=present update_cache=yes
+
+- name: Install htop
+  remote_user: ubuntu
+  sudo : yes
+  apt: name=htop state=present update_cache=yes

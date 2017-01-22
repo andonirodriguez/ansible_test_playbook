@@ -1,0 +1,9 @@
+- name: Copy get-pip.py
+  remote_user: ubuntu
+  sudo: yes
+  copy: src=get-pip.py dest=/home/ubuntu/ owner=ubuntu group=ubuntu mode=0755
+
+- name: Install Pip
+  remote_user: ubuntu
+  sudo: yes
+  shell: python /home/ubuntu/get-pip.py creates=/usr/local/bin/pip chdir=/home/ubuntu

@@ -1,0 +1,12 @@
+# Delete Test EC2
+---
+- name: Delete Test EC2
+  hosts: tag_tag_id_test_ec2
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: Include the variables
+      include_vars: group_vars/test
+
+    - include: delete_instance.yml

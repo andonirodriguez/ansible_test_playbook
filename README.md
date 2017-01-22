@@ -1,2 +1,6 @@
-# ansible_test_template
-ansible_test_template
+Ansible Test Playbook
+======================
+
+Useful Playbook to test Amazon EC2 instances
+
+Related post here: 

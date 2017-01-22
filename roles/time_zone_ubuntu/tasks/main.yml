@@ -1,0 +1,39 @@
+- name: Put Timezone script
+  remote_user: ubuntu
+  sudo: yes
+  copy: src=put_timezone.sh dest=/home/ubuntu owner=ubuntu group=ubuntu mode=0755
+
+- name: Set Timezone
+  remote_user: ubuntu
+  sudo: yes
+  command: /bin/sh /home/ubuntu/put_timezone.sh creates=/tmp/timezone_yet_configured
+
+- name: Sleep 30 seconds (waiting for dpkg)
+  remote_user: ubuntu
+  sudo: yes
+  pause: seconds=30
+
+- name: Dpkg-reconfigure Timezone
+  remote_user: ubuntu
+  sudo: yes
+  shell: dpkg-reconfigure -f noninteractive tzdata
+
+- name: Run apt-get update command
+  remote_user: ubuntu
+  sudo : yes
+  apt: update_cache=yes
+
+- name: Install ntpdate
+  remote_user: ubuntu
+  sudo : yes
+  apt: name=ntpdate state=present update_cache=yes
+
+- name: Execute ntpdate pool.ntp.org
+  remote_user: ubuntu
+  sudo: yes
+  shell: sudo ntpdate pool.ntp.org
+  
+- name: Set cron for ntpdate pool.ntp.org
+  remote_user: ubuntu
+  sudo: yes
+  cron: name="Sync date wiht pool.ntp.org" minute="0" hour="4" job="ntpdate pool.ntp.org"
